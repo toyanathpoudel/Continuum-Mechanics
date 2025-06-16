@@ -1,0 +1,732 @@
+
+\documentclass[a4paper,12pt]{article}
+
+% Language and encoding
+\usepackage[utf8]{inputenc}       % UTF-8 input encoding
+\usepackage[T1]{fontenc}          % Font encoding
+\usepackage[english]{babel}       % Language support
+
+% Math packages
+\usepackage{amsmath, amssymb, amsfonts}  % Math environments, symbols, fonts
+\usepackage{mathtools}            % Extensions to amsmath
+
+% For boxed equations
+\usepackage{empheq}               % Box or highlight equations easily
+
+% For vectors and bold math symbols
+\usepackage{bm}                  % Bold math symbols, e.g. \bm{a}
+
+% For theorem-like environments (if needed)
+\usepackage{amsthm}
+
+% For graphics and color
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+% For tables and arrays
+\usepackage{array}
+\usepackage{booktabs}
+
+% For bibliography and citations
+\usepackage[numbers]{natbib}
+
+% For glossary and nomenclature
+\usepackage{nomencl}
+\usepackage[acronym]{glossaries}
+
+% For customizing table of contents etc.
+\usepackage{tocloft}
+
+% Dummy text (remove later)
+\usepackage{lipsum}
+
+% Theorem environment example (not used here but ready)
+\newtheorem{theorem}{Theorem}[section]
+
+\begin{document}
+
+
+% Include the cover page (no page number)
+\input{cover.tex}
+\thispagestyle{empty} % Remove page number from cover
+\clearpage
+
+
+% Start page numbering from here
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\begin{center}
+\section*{\MakeUppercase{Vectors and Tensors}}
+\end{center}
+
+
+\textbf{1. State which of the following expressions are meaningful in the suffix notation. Write out the unabridged versions of the meaningful expressions:}\\
+
+\begin{enumerate}
+    \item[a.] $a_{ii}$ - \textbf{\fbox{Meaningful}}\\
+    
+    \text{If an index repeats exactly twice in a single term, it implies summation over 
+    that index.} \\
+      \[
+\sum_{i=1}^{3} a_{ii}
+\]
+    $=a_{11} + a_{22} + a_{33}$\\
+    
+    \item[b.] $a_{ij} b_j$ - \textbf {\fbox{Meaningful}} \\
+    $=a_{i1}b_1 + a_{i2}b_2 + a_{i3}b_3$ \\
+    $=a_{11}b_1 + a_{12}b_2 + a_{13}b_3$, \quad
+    $a_{21}b_1 + a_{22}b_2 + a_{23}b_3$, \quad
+    $a_{31}b_1 + a_{32}b_2 + a_{33}b_3$
+    
+    \item[c.] $a_{ij}b_i$ - \textbf{\fbox{Meaningful}} \\
+    \text{The repeated index i appears exactly twice (once in each term)}\\
+    $=a_{1j}b_1 + a_{2j}b_2 + a_{3j}b_3$ \\
+    $=a_{11}b_1 + a_{21}b_2 + a_{31}b_3$, \quad
+    $a_{12}b_1 + a_{22}b_2 + a_{32}b_3$, \quad
+    $a_{13}b_1 + a_{23}b_2 + a_{33}b_3$\\
+    
+    \item[d.] $a_{ii}b_i$ - \textbf{\fbox{Not meaningful}},\quad\\ 
+    \text{i appears three times total in the expression.}
+    
+    \item[e.] $a_{ii}b_{jj}$ - \textbf{\fbox{Meaningful}}\\
+    $=a_{i1}b_{i1} + a_{i2}b_{i2} + a_{i3}b_{i3}$\\
+    $=a_{11}b_{11} + a_{12}b_{12} + a_{13}b_{13} + a_{21}b_{21} + a_{22}b_{22} + a_{23}b_{23} + a_{31}b_{31} + a_{32}b_{32} + a_{33}b_{33}$\\
+    
+    \item[f.] $a_{ii}b_{ii}$ - \textbf{\fbox{Not Meaningful}}\\
+    
+    \item[g.] $a_{rs}b_{sr}$ - \textbf{\fbox{Meaningful}} \\
+    $=a_{11}b_{11} + a_{12}b_{21} + a_{13}b_{31} + a_{21}b_{12} + a_{22}b_{22} + a_{23}b_{32} + a_{31}b_{13} + a_{32}b_{23} + a_{33}b_{33}$\\
+
+    \item[h.] $a_{rs}b_{ss}$ - \textbf{\fbox{Not Meaningful}} \\
+    
+    \item[i.] $a_{ijk}b_{ik}$ - \textbf{\fbox{Meaningful}} \\
+    $= a_{ij1}b_{i1} + a_{ij2}b_{i2} + a_{ij3}b_{i3}$ \\
+    $= a_{1j1}b_{11} + a_{2j1}b_{21} + a_{3j1}b_{31} + a_{2j1}b_{21} + a_{2j2}b_{22} +         a_{2j3}b_{23} + a_{3j1}b_{31} + a_{3j2}b_{32} + a_{3j3}b_{33}$\\
+    
+    The three components are,\\
+    $= a_{111}b_{11} + a_{211}b_{21} + a_{311}b_{31} + a_{211}b_{21} + a_{212}b_{22} +         a_{213}b_{23} + a_{311}b_{31} + a_{312}b_{32} + a_{313}b_{33}$,\\
+    
+    $ a_{121}b_{11} + a_{221}b_{21} + a_{321}b_{31} + a_{221}b_{21} + a_{222}b_{22} +         a_{223}b_{23} + a_{321}b_{31} + a_{322}b_{32} + a_{323}b_{33}$,\\
+    
+    $ a_{131}b_{11} + a_{231}b_{21} + a_{331}b_{31} + a_{231}b_{21} + a_{232}b_{22} +         a_{233}b_{23} + a_{331}b_{31} + a_{332}b_{32} + a_{333}b_{33}$\\
+\end{enumerate}
+
+
+\begin{enumerate}
+\item[2.]{Write in indicial notation the equation:}
+    \begin{itemize}
+        \item[(a)] \( s = A_1^2 + A_2^2 + A_3^2 \)\\[6pt]
+        \textbf{Ans:}
+        \begin{align*}
+            s &= A_1 \cdot A_1 + A_2 \cdot A_2 + A_3 \cdot A_3 \\
+              &= A_i A_i
+        \end{align*}
+        
+        \item[(b)] 
+        \[
+        \frac{\partial^2 \phi}{\partial x_1^2} + \frac{\partial ^2 \phi}{\partial x_2^2} + \frac{\partial^2 \phi}{\partial x_3^2}=0
+        \]
+        \textbf{Ans:}
+        \[
+          {\frac{\partial^2 \phi}{\partial x_1\cdot\partial x_1 } + \frac{\partial ^2 \phi}{\partial x_2\cdot \partial x_2} + \frac{\partial^2 \phi}{\partial x_3 \cdot \partial x_3}=0}\] \\ 
+        \[{\frac{\partial^2 \phi}{\partial x_i \partial x_i}=0}
+        \]
+          
+    \end{itemize}
+\end{enumerate}
+
+
+\textbf{3.Write the equation in Expanded form:}
+
+\begin{enumerate}
+     General form:
+    \[
+    a_i = \frac{\partial v_i}{\partial t} + v_j \cdot \frac{\partial v_i}{\partial x_j}
+    \]
+
+    Expanded form:
+    \[
+    a_i = \frac{\partial v_i}{\partial t} + v_1 \cdot \frac{\partial v_i}{\partial x_1} + v_2 \cdot \frac{\partial v_i}{\partial x_2} + v_3 \cdot \frac{\partial v_i}{\partial x_3}
+    \]
+
+    For \(i=1\):
+    \[
+    a_1 = \frac{\partial v_1}{\partial t} + v_1 \cdot \frac{\partial v_1}{\partial x_1} + v_2 \cdot \frac{\partial v_1}{\partial x_2} + v_3 \cdot \frac{\partial v_1}{\partial x_3}
+    \]
+
+   For \(i=2\):
+    \[
+    a_2 = \frac{\partial v_2}{\partial t} + v_1 \cdot \frac{\partial v_2}{\partial x_1} + v_2 \cdot \frac{\partial v_2}{\partial x_2} + v_3 \cdot \frac{\partial v_2}{\partial x_3}
+    \]
+
+     For \(i=3\):
+    \[
+    a_3 = \frac{\partial v_3}{\partial t} + v_1 \cdot \frac{\partial v_3}{\partial x_1} + v_2 \cdot \frac{\partial v_3}{\partial x_2} + v_3 \cdot \frac{\partial v_3}{\partial x_3}
+    \]    
+\end{enumerate}
+
+
+
+\textbf{4.Write an indicia notation the matrix equation}
+
+    \[[E] =[B]^T [C] [F]\]
+    \\
+    \textbf{Ans:}
+    \[E_{ij}=B_{ip}^T C_{pk} F_{kj}\]
+    \[E_{ij}=B_{pi} C_{pk} F_{kj}\]
+    \\
+    
+\textbf{5.Write down the following equation in a condensed form:}
+\begin{enumerate}
+    \item[(a)] $ a_{11}=a_{22}=a_{33}=-p$\\
+              $ a_{12}=a_{21}=a_{13}=a_{31}=a_{23}=a_{32}=0$\\
+              \\
+    \textbf{Ans:}\\
+   We have the Kronecker delta defined as:\\
+    \[
+% Start of displayed math mode
+\delta_{ij} = % Kronecker delta symbol with subscripts i and j
+\begin{cases} % Begin a piecewise (cases) environment
+1 & \text{if } i = j \\ % First case: 1 if i = j
+0 & \text{if } i \ne j % Second case: 0 if i ≠ j
+\end{cases} % End of cases environment
+\] 
+
+
+% If you want the formula to stand out, use display math (\[ ... \]).
+%If you want it inside a sentence, use inline math ($ ... $).
+
+
+Therefore, we can write:
+    \[
+    a_{ij} = -p \cdot \delta_{ij}
+    \]
+
+
+
+    \item[(b)] 
+    $ a_{11}=\alpha (b_{11}+ b_{22}+ b_{33}) + \beta b_{11}$\\
+    $ a_{22}=\alpha (b_{11}+ b_{22}+ b_{33} )+ \beta b_{22}$\\
+    $ a_{33}=\alpha (b_{11}+ b_{22}+ b_{33} )+ \beta b_{33}$\\
+    $ a_{12}=\beta b_{12},a_{21}=\beta b_{21},a_{23}=\beta b_{23}\\,a_{32}=\beta b_{32},a_{13}=\beta b_{13},a_{31}=\beta b_{31},$\\
+
+    \textbf{Ans:}
+\[
+\begin{aligned}
+a_{ii} &= \alpha (b_{11} + b_{22} + b_{33}) + \beta b_{ii} \quad \text{(for diagonal elements)} \\
+a_{ij} &= \beta b_{ij} \quad \text{for } i \neq j \quad \text{(off-diagonal elements)}
+\end{aligned}
+\]
+
+    Compact indicial notation:
+    \[
+    a_{ij} = \alpha \delta_{ij} \sum_{k=1}^3 b_{kk} + \beta b_{ij}
+    \]
+
+    Using Einstein summation convention:
+    \[
+    a_{ij} = \alpha \delta_{ij} b_{kk} + \beta b_{ij}
+    \]
+    where \( \delta_{ij} \) is the Kronecker delta and \( b_{kk} \) is the trace of \( b_{ij} \).
+ \\     
+  \\  
+
+\textbf{6.Simplify the following:}
+
+
+    \item[(a)] $\delta_{ij}(a_{ij} - a_{ji})$ \\ \textbf{Ans:}  \noindent
+\makebox[\textwidth][1cm]{%
+  \(
+  \boxed{
+    \delta_{ij} =
+    \begin{cases}
+      1 & \text{if } i = j \\
+      0 & \text{if } i \ne j
+    \end{cases}
+  }
+  \)
+}
+    If $i = j$:\\
+    $ =\delta_{ii}(a_{ij} - a_{ji})$\\
+    $= 1 \cdot (a_{ii} - a_{ii})\\ = 0$ \\ 
+    
+    If $i \ne j$: \\
+    $=\delta_{ij}(a_{ij} - a_{ji})\\= 0 \cdot (a_{ij} - a_{ji})\\= 0$
+    \\
+    \item[(b)] $\delta_{ip} \delta_{jq} a_{p} b_{j} c_q$
+    
+    We have the relation $\boxed{\delta_{ip}\cdot a_{p}=a_{i}}$
+    \\
+    $\delta_{ip} \delta_{jq} a_{p} b_{j} c_{q}$ \\ 
+    $= a_{i} b_{j} c_{j}$\\
+    
+   
+ 
+
+
+ \item[(c)] $(\delta_{ij} + a_{ij})(\delta_{ij} - a_{ij})$ \\
+    \noindent
+\makebox[\textwidth][2.2cm]{%
+  \boxed{%
+    \begin{aligned}
+      \delta_{ij} &= \delta_{ji} \\
+      \delta_{kk} &= 3 \\
+      a_i &= \delta_{ik} a_k \\
+      A_{ij} &= \delta_{ik} A_{kj}
+    \end{aligned}
+  }
+}
+\textbf{Ans:}\quad
+    If $i = j$: \\
+    $(\delta_{ii} + a_{ii})(\delta_{ii} - a_{ii})\\ = \delta_{ii}^2 - a_{ii}^2\\ = 1 - a_{ii}^2$ \\
+    \\Summed over $i$: \\
+
+    $= \sum_{i} (1 - a_{ii}^2)\\ = 3 - a_{11}^2 - a_{22}^2 - a_{33}^2$
+    \\
+    
+    If $i \ne j$: \\
+    $(\delta_{ij} + a_{ij})(\delta_{ij} - a_{ij})\\ = \delta_{ij}^2 - a_{ij}^2 = 0 - a_{ij}^2 \\= -a_{ij}^2$ \\
+    Summed over all $i \ne j$:  \\
+    $= 3 - a_{ij}a_{ij}$
+    \\
+
+    \item[(d)] $\delta_{ik} \delta_{kp} \delta_{pi}$ \\
+    $ =\delta_{ip}\cdot \delta_{pi}$\\
+    $= \delta_{ii}\\
+    =\delta_{11}+\delta_{22}+\delta_{33}$
+    =3
+    \\
+%=====================================================
+\\
+\textbf{7.Show that}
+
+\[
+\varepsilon_{ijk} = 
+\begin{vmatrix}
+\delta_{i1} & \delta_{i2} & \delta_{i3} \\
+\delta_{j1} & \delta_{j2} & \delta_{j3} \\
+\delta_{k1} & \delta_{k2} & \delta_{k3}
+\end{vmatrix}
+\]
+
+\textit{Indicial Proof:\\}
+We know that,\
+
+\begin{cases}
++1 & \text{if } (i,j,k) \text{ is an even permutation of } (1,2,3) \\
+-1 & \text{if } (i,j,k) \text{ is an odd permutation of } (1,2,3) \\
+0 & \text{if any two indices are equal}
+\end{cases}\\
+
+
+
+We use the identity:
+\[
+\varepsilon_{ijk} = \sum_{p=1}^{3} \sum_{q=1}^{3} \sum_{r=1}^{3} \varepsilon_{pqr} \delta_{ip} \delta_{jq} \delta_{kr}
+\]
+
+Using the sifting property of the Kronecker delta:
+\[
+\boxed{\delta_{ip} \varepsilon_{pqr} = \varepsilon_{i q r}, \quad
+\delta_{jq} \varepsilon_{i q r} = \varepsilon_{i j r}, \quad
+\delta_{kr} \varepsilon_{i j r} = \varepsilon_{ijk}}
+\]
+
+Therefore,
+\[
+\varepsilon_{ijk} = \sum_{pqr} \varepsilon_{pqr} \delta_{ip} \delta_{jq} \delta_{kr}
+= \varepsilon_{ijk}
+\]
+
+So the determinant expression is equal to \(\varepsilon_{ijk}\), proving the identity.
+
+\vspace{1em}
+
+\textbf{(b)} Show that:
+\[
+\varepsilon_{ijk} a_i b_j = 
+\begin{vmatrix}
+a_1 & a_2 & a_3 \\
+b_1 & b_2 & b_3 \\
+\delta_{k1} & \delta_{k2} & \delta_{k3}
+\end{vmatrix}
+\]
+
+\textit{Indicial Proof:}
+
+Start from the determinant expression:
+\[
+\begin{vmatrix}
+a_1 & a_2 & a_3 \\
+b_1 & b_2 & b_3 \\
+\delta_{k1} & \delta_{k2} & \delta_{k3}
+\end{vmatrix}
+= \sum_{p=1}^{3} \sum_{q=1}^{3} \sum_{r=1}^{3} \varepsilon_{pqr} a_p b_q \delta_{kr}
+\]
+
+By the sifting property of the delta:
+\[
+= \sum_{p=1}^{3} \sum_{q=1}^{3} \varepsilon_{pqk} a_p b_q
+\]
+
+Now relabel dummy indices \(p \to i\), \(q \to j\):
+\[
+= \varepsilon_{ijk} a_i b_j
+\]
+
+Therefore:
+\[
+\varepsilon_{ijk} a_i b_j = 
+\begin{vmatrix}
+a_1 & a_2 & a_3 \\
+b_1 & b_2 & b_3 \\
+\delta_{k1} & \delta_{k2} & \delta_{k3}
+\end{vmatrix}
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\textbf{8.Show that}
+Let \( \vec{v} = \vec{a} \times \vec{b}, \) Using indicial notation, show that:\\
+\begin{itemize}
+  \item[(a)] \( \vec{v} \cdot \vec{v} = a^2 b^2 \sin^2 \theta \)
+  \item[(b)] \( \vec{a} \times \vec{b} \cdot \vec{a} = 0 \)
+  \item[(c)] \( \vec{a} \times \vec{b} \cdot \vec{b} = 0 \)
+\end{itemize}
+
+\textbf{Solution:}
+
+\textbf{(a)} For the given vector, we have:
+\[
+\begin{aligned}
+\vec{v} \cdot \vec{v} 
+&= \varepsilon_{ijk} a_j b_k \hat{e}_i \cdot \varepsilon_{pqs} a_q b_s \hat{e}_p \\
+&= \varepsilon_{ijk} a_j b_k \varepsilon_{ipq} a_p b_q
+\end{aligned}
+\]
+
+Using the identity:
+
+\[
+\boxed{
+\varepsilon_{ijk} \varepsilon_{ipq}
+= \delta_{jp} \delta_{kq} - \delta_{jq} \delta_{kp}
+}
+\]
+
+We get, 
+\[
+\begin{aligned}
+\vec{v} \cdot \vec{v}&= (\delta_{jp} \delta_{kq} - \delta_{jq} \delta_{kp}) a_j b_k a_p b_q \\
+&= a_j b_k a_j b_k - a_j b_k a_k b_j\\
+&= (\vec{a} \cdot \vec{a})(\vec{b} \cdot \vec{b}) - (\vec{a} \cdot \vec{b}) (\vec{a} \cdot \vec{b})\\
+&= a^2 b^2 - (\vec a \cdot \vec b )^2\\
+&=a^2 b^2 - (ab \cos \theta)^2\\
+&= a^2 b^2 (1 - \cos^2 \theta)\\
+&= a^2 b^2 \sin^2 \theta\\
+\end{aligned}
+\]
+
+\textbf{(b)}
+\begin{align*}
+(\vec{a} \times \vec{b}) \cdot \vec{a} 
+&= (\varepsilon_{ijk} a_j b_k \hat{e}_i) \cdot a_q \hat{e}_q \\
+&= \varepsilon_{ijk} a_j b_k a_q \delta_{iq} \\
+&= \varepsilon_{ijk} a_j b_k a_i \\
+&= 0
+\end{align*}
+
+
+This is zero by symmetry in \( i \) and \( j \).\\ 
+
+\textbf{(c)} :
+\begin{align*}
+(\vec{a} \times \vec{b}) \cdot \vec{b}
+&= \varepsilon_{ijk} a_j b_k \hat{e}_i \cdot b_q \hat{e}_q \\
+&= \varepsilon_{ijk} a_j b_k b_q \delta_{iq} \\
+&= \varepsilon_{ijk} a_j b_k b_i \\
+&= 0
+\end{align*}
+
+
+Again, this is zero by symmetry in \( i \) and \( k \).\\
+
+
+
+%======================================================
+
+
+\textbf{9.Verify the following Vector Identities using indicial notation}
+
+
+\item[(a)]
+\[
+\vec{a} \times\vec{b} =-\vec{b} \times \vec{a}
+\]\\
+
+
+
+
+\textbf{Cross Product in Index Notation:}
+
+\[
+[\vec{a} \times \vec{b}]_i = \varepsilon_{ijk} a_j b_k
+\]
+\[
+[\vec{b} \times \vec{a}]_i = \varepsilon_{ijk} b_j a_k
+\]
+
+\textbf{Demonstrating Antisymmetry:}
+
+\[
+\begin{aligned}
+[\vec{a} \times \vec{b}]_i &= \varepsilon_{ijk} a_j b_k \\
+&= -\varepsilon_{ikj} a_k b_j \quad \text{(antisymmetry: swap } j \leftrightarrow k) \\
+&= -\varepsilon_{ijk} b_j a_k \quad \text{(rename dummy indices } j \leftrightarrow k) \\
+&= -[\vec{b} \times \vec{a}]_i
+\end{aligned}
+\]
+
+\textbf{Therefore:}
+
+\[
+\boxed{\vec{a} \times \vec{b} = -(\vec{b} \times \vec{a})}
+\]
+
+
+
+
+ 
+
+
+
+\item[(b)]
+\[
+\vec{a} \cdot (\vec{b} \times \vec{c}) = \vec{b} \cdot (\vec{c} \times \vec{a})
+\]\\
+\textbf{Ans:}\\
+
+\[
+\begin{aligned}
+[\vec{a} \cdot (\vec{b} \times \vec{c})]_{i}
+&=\vec{a}_i \cdot (\vec{b} \times \vec{c})_{i}\\
+&=\varepsilon_{ijk} a_i  b_j  c_k\\
+&= \varepsilon_{ijk} a_i b_j c_k
+\end{aligned}
+\]
+\[
+\begin{aligned}
+[\vec{b} \cdot (\vec{c} \times \vec{a})]_i 
+&=\vec{b}_i \cdot (\vec{c} \times \vec{a})_{i}\\
+&= \varepsilon_{ijk} b_i c_j a_k\\
+&= \varepsilon_{kij} a_i b_j c_k\\
+&=\varepsilon_{ijk} a_i b_j c_k\\
+&=[\vec{a} \cdot (\vec{b} \times \vec{c})]_{i}
+\end{aligned}
+\]
+
+\textbf{ By using cyclic property, }
+\[
+\varepsilon_{kij} = \varepsilon_{ijk}
+\Rightarrow \varepsilon_{kij} a_i b_j c_k = \varepsilon_{ijk} a_i b_j c_k
+\]
+\[
+\boxed{
+\vec{a} \cdot (\vec{b} \times \vec{c}) = 
+\vec{b} \cdot (\vec{c} \times \vec{a}) = 
+\vec{c} \cdot (\vec{a} \times \vec{b})
+}
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+
+\item[(c)] 
+\[
+\vec{a} \times (\vec{b} \times \vec{c}) = (\vec{a} \cdot \vec{c}) \vec{b} - (\vec{a} \cdot \vec{b}) \vec{c}.
+\]
+
+\vspace{10pt}
+
+\textbf Express the left-hand side in index notation:
+\[
+\left[\vec{a} \times (\vec{b} \times \vec{c})\right]_i = \varepsilon_{ijk} a_j (\vec{b} \times \vec{c})_k = \varepsilon_{ijk} a_j \varepsilon_{klm} b_l c_m.
+\]
+
+\vspace{5pt}
+
+\textbf Use the identity
+\[\boxed{
+\varepsilon_{ijk} \varepsilon_{klm} = \delta_{il} \delta_{jm} - \delta_{im} \delta_{jl}}.
+\]
+
+
+\textbf{Substitute and simplify:}
+\[
+\begin{aligned}
+[\vec{a} \times (\vec{b} \times \vec{c})]_i 
+&= (\delta_{il} \delta_{jm} - \delta_{im} \delta_{jl}) a_j b_l c_m \\
+&= b_i a_j c_j - c_i a_j b_j \\
+&= b_i (\vec{a} \cdot \vec{c}) - c_i (\vec{a} \cdot \vec{b}).
+\end{aligned}
+\]
+\[
+\boxed{
+\vec{a} \times (\vec{b} \times \vec{c}) = (\vec{a} \cdot \vec{c}) \vec{b} - (\vec{a} \cdot \vec{b}) \vec{c}.
+}
+\]
+
+
+
+
+
+
+
+\item[(d)]\[(\vec{a}\times \vec{b}) \cdot (\vec{c} \times \vec{d})] = (\vec{a} \cdot \vec{c}) \cdot (\vec{b}\cdot \vec{d}) - (\vec{a} \cdot \vec{d}) \cdot (\vec{b} \cdot \vec{c})
+\]
+\textbf{Ans:}\\
+Let \(\vec{a}, \vec{b}, \vec{c}, \vec{d}\) be vectors
+
+
+\textbf{Proof:}
+
+\textbf Express the left-hand side in index notation:
+\[
+[(\vec{a} \times \vec{b}) \cdot (\vec{c} \times \vec{d})]_i = (\vec{a} \times \vec{b})_i (\vec{c} \times \vec{d})_i = \varepsilon_{ijk} a_j b_k \, \varepsilon_{imn} c_m d_n.
+\]
+
+\vspace{5pt}
+
+\textbf Use the relation: 
+\[\boxed{
+\varepsilon_{ijk} \varepsilon_{imn} = \delta_{jm} \delta_{kn} - \delta_{jn} \delta_{km}},
+\]
+
+where \(\delta_{ij}\) is the Kronecker delta.
+
+\vspace{5pt}
+
+\textbf Substitute this identity:
+\[
+\begin{aligned}
+(\vec{a} \times \vec{b}) \cdot (\vec{c} \times \vec{d}) 
+&= (\delta_{jm} \delta_{kn} - \delta_{jn} \delta_{km}) a_j b_k c_m d_n \\
+&= \delta_{jm} \delta_{kn} \, a_j b_k c_m d_n - \delta_{jn} \delta_{km} \, a_j b_k c_m d_n
+\end{aligned}
+\]
+
+
+
+\vspace{5pt}
+
+\textbf Apply the properties of the Kronecker delta:
+
+\[
+= a_m b_n c_m d_n - a_n b_m c_m d_n,
+\]
+\textbf{Since} \quad
+\boxed{
+\begin{aligned}
+\delta_{jm} a_j &= a_m, \\
+\delta_{kn} b_k &= b_n,
+\end{aligned}
+}
+\quad \text{etc.}
+
+
+\vspace{5pt}
+
+\textbf Then:
+\[
+= (\vec{a} \cdot \vec{c})(\vec{b} \cdot \vec{d}) - (\vec{b} \cdot \vec{c})(\vec{a} \cdot \vec{d}).
+\]
+
+\vspace{10pt}
+
+\textbf{Therefore,}
+\[
+\boxed{
+(\vec{a} \times \vec{b}) \cdot (\vec{c} \times \vec{d}) = (\vec{a} \cdot \vec{c})(\vec{b} \cdot \vec{d}) - (\vec{b} \cdot \vec{c})(\vec{a} \cdot \vec{d}).
+}
+\]
+
+
+
+
+
+\item[(e)]\[(\vec{a} \times \vec{b}) \times (\vec{c} \times \vec{d}) = (\vec{d} \cdot (\vec{a} \times \vec{b}))\, \vec{c} - (\vec{c} \cdot (\vec{a} \times \vec{b}))\, \vec{d}
+\]
+\textbf{Ans:}\\
+Using indicial notation:
+\[
+[(\vec{a} \times \vec{b}) \times (\vec{c} \times \vec{d})]_i = \varepsilon_{ijk} (\vec{a} \times \vec{b})_j (\vec{c} \times \vec{d})_k
+\]
+
+We write the cross products as:
+\[
+(\vec{a} \times \vec{b})_j = \varepsilon_{jmn} a_m b_n, \quad (\vec{c} \times \vec{d})_k = \varepsilon_{kpq} c_p d_q
+\]
+
+So:
+\[
+[(\vec{a} \times \vec{b}) \times (\vec{c} \times \vec{d})]_i = \varepsilon_{ijk} \varepsilon_{jmn} \varepsilon_{kpq} a_m b_n c_p d_q
+\]
+
+Using the identity:
+\[
+\boxed{\varepsilon_{ijk} \varepsilon_{jmn} = \delta_{im} \delta_{kn} - \delta_{in} \delta_{km}}
+\]
+
+we get:
+\[
+= (\delta_{im} \delta_{kn} - \delta_{in} \delta_{km}) \varepsilon_{kpq} a_m b_n c_p d_q
+\]
+
+Expanding the terms:
+\begin{align*}
+&= \delta_{im} \delta_{kn} \varepsilon_{kpq} a_m b_n c_p d_q - \delta_{in} \delta_{km} \varepsilon_{kpq} a_m b_n c_p d_q \\
+&= a_i b_k \varepsilon_{kpq} c_p d_q - b_i a_k \varepsilon_{kpq} c_p d_q \\
+&= a_i (\vec{b} \cdot (\vec{c} \times \vec{d})) - b_i (\vec{a} \cdot (\vec{c} \times \vec{d}))
+\end{align*}
+
+Thus,
+\[
+[(\vec{a} \times \vec{b}) \times (\vec{c} \times \vec{d})]_i = (\vec{d} \cdot (\vec{a} \times \vec{b}))\, c_i - (\vec{c} \cdot (\vec{a} \times \vec{b}))\, d_i
+\]
+
+So in vector form:
+\[
+\boxed{
+(\vec{a} \times \vec{b}) \times (\vec{c} \times \vec{d}) = (\vec{d} \cdot (\vec{a} \times \vec{b}))\, \vec{c} - (\vec{c} \cdot (\vec{a} \times \vec{b}))\, \vec{d}
+}
+\]
+
+\vspace{4cm}
+\begin{center}
+\Huge \textbf{Thank You!}
+\end{center}
+
+
+\end{document}
